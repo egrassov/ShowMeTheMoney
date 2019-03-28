@@ -8,7 +8,9 @@
     "react-dom": "^16.8.5",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
-    "three": "^0.103.0"
+    "three": "^0.103.0",
+    "three-orbit-controls": "^82.1.0",
+    "three-stats": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
