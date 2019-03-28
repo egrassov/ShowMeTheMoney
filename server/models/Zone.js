@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 
-// Modelo con validación de datos y conversión de 'name'
 const zoneSchema = new Schema({
   "Zone": String,
   "Date": String,
@@ -37,9 +36,7 @@ const zoneSchema = new Schema({
 
 
 
-// Crear modelo pasando a .model() el nombre del modelo y el esquema
 const Zone = mongoose.model('Zone', zoneSchema);
 
 
-// Exportar el modelo para requerirlo en otros módulos
 module.exports = Zone;
