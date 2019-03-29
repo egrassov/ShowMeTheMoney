@@ -1,11 +1,33 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
+import GeneralStats from './GeneralStats';
+
+import Service from '../services/generalservice'
 var OrbitControls = require('three-orbit-controls')(THREE)
 
 
 
 class ThreeScene extends Component{
+
+  constructor(){
+    super()
+    this.service = new Service()
+    this.ziplist = undefined
+    this.state = {
+      current : null
+    }
+  }
+
+  getZips = () => {
+    this.service.getZipStats()
+    .then(response=>{
+        console.log(response)
+        this.ziplist = response
+    })
+  }
+
   componentDidMount(){
+    this.getZips()
     const width = this.mount.clientWidth
     const height = this.mount.clientHeight
     console.log(width,height)
@@ -18,6 +40,14 @@ class ThreeScene extends Component{
       0.1,
       1000
     )
+
+    this.light = new THREE.DirectionalLight( 0xdddddd, 0.8 )
+    this.light.position.set( -10, 10, 10 )
+
+    this.targetObject = new THREE.Object3D();
+    this.targetObject.position.set(0,0,0)
+    this.light.target = this.targetObject
+
     this.camera.position.y = 10
     this.camera.position.z = 16
     this.camera.lookAt(this.scene.position);
@@ -36,19 +66,23 @@ class ThreeScene extends Component{
 
     //ADD CUBE
     const geometry = new THREE.BoxGeometry(3, 3, 3)
-    const material = new THREE.MeshBasicMaterial({color:'#4286f4' ,transparent:true})
-    material.opacity = 0.4
-    this.cube = new THREE.Mesh(geometry, material)
+    this.material = new THREE.MeshPhongMaterial({color:'#4286f4' ,transparent:true})
+    this.material.opacity = 0.4
+    this.material2 = new THREE.MeshBasicMaterial({color:'#ffff00' ,transparent:true})
+    this.cube = new THREE.Mesh(geometry, this.material)
+    this.cube2 = new THREE.Mesh(geometry, this.material)
+    this.cube.receiveShadow = true
+    this.cube.name = "28001"
+    this.cube2.name = "28002"
+    this.cube2.position.x = -5
 
-    this.cube.name = "popino"
-
-    this.scene.add(this.cube)
+    this.scene.add(this.cube, this.cube2,this.light,this.targetObject)
 
     this.raycaster = new THREE.Raycaster(); // create once
     this.mouse = new THREE.Vector2(); // create once  
     this.INTERSECTED = undefined
 
-    this.projector = new THREE.Projector();
+
     this.ray = undefined
     this.vector = undefined
     this.intersects = undefined
@@ -122,25 +156,25 @@ class ThreeScene extends Component{
         if (this.intersects[0].object !== this.INTERSECTED) {
           // restore previous intersection object (if it exists) to its original color
           if (this.INTERSECTED) {
-            this.INTERSECTED.material.color.setHex(this.INTERSECTED.currentHex)
             console.log(this.INTERSECTED.position.y)
             this.INTERSECTED.position.y -= 0.4
+            this.INTERSECTED.material = this.material
           }
             
           // store reference to closest object as current intersection object
           this.INTERSECTED = this.intersects[0].object;
           // store color of closest object (for later restoration)
-          this.INTERSECTED.currentHex = this.INTERSECTED.material.color.getHex()
           this.INTERSECTED.currentpositiony = this.INTERSECTED.position.y
           // set a new color for closest object
-          this.INTERSECTED.material.color.setHex(0xffff00)
+          this.INTERSECTED.material = this.material2
           this.INTERSECTED.position.y += 0.4
+          this.setState({current : this.INTERSECTED})
         }
       } else // there are no intersections
       {
         // restore previous intersection object (if it exists) to its original color
         if (this.INTERSECTED) {
-          this.INTERSECTED.material.color.setHex(this.INTERSECTED.currentHex)
+          this.INTERSECTED.material = this.material
           console.log(this.INTERSECTED.position.y)
           this.INTERSECTED.position.y = 0
         }
@@ -148,8 +182,9 @@ class ThreeScene extends Component{
         // remove previous intersection object reference
         //     by setting current intersection object to "nothing"
         this.INTERSECTED = null
+        
       }
-      
+      if(this.state.current!==this.INTERSECTED) this.setState({current : this.INTERSECTED})
         // this.controls.update();
         // // this.stats.update();
       }
@@ -158,13 +193,21 @@ class ThreeScene extends Component{
     renderScene = () => {
         this.renderer.render(this.scene, this.camera)
     }
+
     render(){
+        let elementtoprint = undefined
+        if(this.ziplist&&this.state.current){
+          elementtoprint = this.ziplist.filter(e=>e.Zone==this.state.current.name)[0]
+        }
         return(
-        <div
-            style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
-            ref={(mount) => { this.mount = mount }}
-            onMouseMove={this.onDocumentMouseMove}
-        />
+        <div>
+          <GeneralStats title={this.state.current ? elementtoprint.Peakday : "nada"}/>
+          <div
+              style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
+              ref={(mount) => { this.mount = mount }}
+              onMouseMove={this.onDocumentMouseMove}
+          />
+        </div>
         )
     }
 }
