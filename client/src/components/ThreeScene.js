@@ -68,15 +68,21 @@ class ThreeScene extends Component{
     const geometry = new THREE.BoxGeometry(3, 3, 3)
     this.material = new THREE.MeshPhongMaterial({color:'#4286f4' ,transparent:true})
     this.material.opacity = 0.4
-    this.material2 = new THREE.MeshBasicMaterial({color:'#ffff00' ,transparent:true})
+    this.material2 = new THREE.MeshPhongMaterial({color:'#f26d73' ,transparent:true})
+    this.material2.opacity = 0.3
     this.cube = new THREE.Mesh(geometry, this.material)
     this.cube2 = new THREE.Mesh(geometry, this.material)
     this.cube.receiveShadow = true
-    this.cube.name = "28001"
-    this.cube2.name = "28002"
+    this.cube2.receiveShadow = true
+    this.cube.name = "28023"
+    this.cube2.name = "28044"
     this.cube2.position.x = -5
 
-    this.scene.add(this.cube, this.cube2,this.light,this.targetObject)
+    this.group = new THREE.Group();
+    this.group.add(this.cube);
+    this.group.add(this.cube2);
+
+    this.scene.add(this.group,this.light,this.targetObject)
 
     this.raycaster = new THREE.Raycaster(); // create once
     this.mouse = new THREE.Vector2(); // create once  
@@ -105,7 +111,7 @@ class ThreeScene extends Component{
     onDocumentMouseMove = (event) => {
         // the following line would stop any other event handler from firing
         // (such as the mouse's TrackballControls)
-        // event.preventDefault();
+        event.preventDefault();
       
         // update the mouse variable
 
@@ -115,7 +121,9 @@ class ThreeScene extends Component{
       }
 
     animate = () => {
-        this.cube.rotation.y += 0.01
+        this.cube.rotation.y += 0.02
+        this.cube2.rotation.y -= 0.03
+        this.group.rotation.y -= 0.01
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
     }
@@ -123,10 +131,12 @@ class ThreeScene extends Component{
     update = () => {
 
 
-
+        console.log("entro")
         this.raycaster.setFromCamera( this.mouse, this.camera );
-
-        this.intersects = this.raycaster.intersectObjects( this.scene.children );
+        console.log(this.scene.children)
+        console.log(this.group)
+        this.intersects = this.raycaster.intersectObjects( this.group.children )
+        console.log(this.intersects)
         if(this.intersects.length>0){
           console.log(this.intersects[0].object.name)
         }
@@ -201,7 +211,7 @@ class ThreeScene extends Component{
         }
         return(
         <div>
-          <GeneralStats title={this.state.current ? elementtoprint.Peakday : "nada"}/>
+          <GeneralStats element={elementtoprint}/>
           <div
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
               ref={(mount) => { this.mount = mount }}
