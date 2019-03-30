@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import * as THREE from 'three'
+
 import GeneralStats from './GeneralStats';
 
 import Service from '../services/generalservice'
-var OrbitControls = require('three-orbit-controls')(THREE)
+
+
+
+
 
 
 
@@ -13,6 +16,8 @@ class ThreeScene extends Component{
     super()
     this.service = new Service()
     this.ziplist = undefined
+    this.objLoader = new window.THREE.OBJLoader()
+    this.textureLoader = new window.THREE.TextureLoader()
     this.state = {
       current : null
     }
@@ -32,27 +37,27 @@ class ThreeScene extends Component{
     const height = this.mount.clientHeight
     console.log(width,height)
     //ADD SCENE
-    this.scene = new THREE.Scene()
+    this.scene = new window.THREE.Scene()
     //ADD CAMERA
-    this.camera = new THREE.PerspectiveCamera(
+    this.camera = new window.THREE.PerspectiveCamera(
       75,
       width / height,
       0.1,
       1000
     )
 
-    this.light = new THREE.DirectionalLight( 0xdddddd, 0.8 )
-    this.light.position.set( -10, 10, 10 )
+    this.light = new window.THREE.DirectionalLight( 0xdddddd, 0.8 )
+    this.light.position.set( -10, 10, -10 )
 
-    this.targetObject = new THREE.Object3D();
+    this.targetObject = new window.THREE.Object3D();
     this.targetObject.position.set(0,0,0)
     this.light.target = this.targetObject
 
     this.camera.position.y = 10
-    this.camera.position.z = 16
+    this.camera.position.z = 4
     this.camera.lookAt(this.scene.position);
     //ADD RENDERER
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    this.renderer = new window.THREE.WebGLRenderer({ antialias: true, alpha: true })
     this.renderer.setClearColor( 0xffffff,0);
     this.renderer.setSize(width, height)
     this.mount.appendChild(this.renderer.domElement)
@@ -60,32 +65,86 @@ class ThreeScene extends Component{
 
 
     // CONTROLS
-    this.controls = new OrbitControls(this.camera,this.renderer.domElement);
+    this.controls = new window.THREE.OrbitControls(this.camera,this.renderer.domElement);
+
+    // LOADERS
+
+    this.citymodel = undefined
+    this.vidriotest = undefined
+    this.citymap = this.textureLoader.load('/models/citytext.jpg')
+    this.citymaterial = new window.THREE.MeshPhongMaterial({map: this.citymap, alphaMap: this.citymap})
+      console.log(this.objLoader)
+      console.log(this.citymap)
+
+    this.group = new window.THREE.Group();
+  
+
+    this.objLoader.load('/models/testcity.obj',( city )=> {
+      city.traverse( ( node )=> {
+          if ( node.isMesh ) {
+              console.log(node)
+              this.citymodel = node
+              this.citymodel.material = this.citymaterial
+              this.citymodel.rotation.x = -Math.PI/2
+              this.group.add(this.citymodel);
+          } } )
+      },
+      function ( progress ) {
+          console.log( ( progress.loaded / progress.total * 100 ) + '% loaded' );
+      },
+      function ( error ) {
+          console.log( 'An error happened loading the city model' );
+      }
+      );
+
+      this.material = new window.THREE.MeshPhongMaterial({color:'#ffffff' ,transparent:true})
+      this.material.opacity = 0.2
+      this.material2 = new window.THREE.MeshPhongMaterial({color:'#f26d73' ,transparent:true})
+      this.material2.opacity = 0.5
+
+    this.group2 = new window.THREE.Group()
+    this.objLoader.load('/models/vidriotest.obj',( city )=> {
+      city.traverse( ( node )=> {
+          if ( node.isMesh ) {
+              console.log(node)
+              this.vidriotest = node
+              this.vidriotest.name = "28035"
+              this.vidriotest.rotation.x = -Math.PI/2
+              this.vidriotest.material = this.material
+              this.group2.add(this.vidriotest);
+              this.group.add(this.group2)
+          } } )
+      },
+      function ( progress ) {
+          console.log( ( progress.loaded / progress.total * 100 ) + '% loaded' );
+      },
+      function ( error ) {
+          console.log( 'An error happened loading the city model' );
+      }
+      );
+
+    
+
 
 
 
     //ADD CUBE
-    const geometry = new THREE.BoxGeometry(3, 3, 3)
-    this.material = new THREE.MeshPhongMaterial({color:'#4286f4' ,transparent:true})
-    this.material.opacity = 0.4
-    this.material2 = new THREE.MeshPhongMaterial({color:'#f26d73' ,transparent:true})
-    this.material2.opacity = 0.3
-    this.cube = new THREE.Mesh(geometry, this.material)
-    this.cube2 = new THREE.Mesh(geometry, this.material)
-    this.cube.receiveShadow = true
-    this.cube2.receiveShadow = true
-    this.cube.name = "28023"
-    this.cube2.name = "28044"
-    this.cube2.position.x = -5
+    // const geometry = new window.THREE.BoxGeometry(3, 3, 3)
+    // 
+    // 
+    // this.cube = new window.THREE.Mesh(geometry, this.material)
+    // this.cube2 = new window.THREE.Mesh(geometry, this.material)
+    // this.cube.receiveShadow = true
+    // this.cube2.receiveShadow = true
+    // this.cube.name = "28023"
+    // this.cube2.name = "28044"
+    // this.cube2.position.x = -5
 
-    this.group = new THREE.Group();
-    this.group.add(this.cube);
-    this.group.add(this.cube2);
-
+    
     this.scene.add(this.group,this.light,this.targetObject)
 
-    this.raycaster = new THREE.Raycaster(); // create once
-    this.mouse = new THREE.Vector2(); // create once  
+    this.raycaster = new window.THREE.Raycaster(); // create once
+    this.mouse = new window.THREE.Vector2(); // create once  
     this.INTERSECTED = undefined
 
 
@@ -121,9 +180,9 @@ class ThreeScene extends Component{
       }
 
     animate = () => {
-        this.cube.rotation.y += 0.02
-        this.cube2.rotation.y -= 0.03
-        this.group.rotation.y -= 0.01
+        // this.cube.rotation.y += 0.02
+        // this.cube2.rotation.y -= 0.03
+        if(this.citymodel&&this.vidriotest)this.group.rotation.y -= 0.002
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
     }
@@ -134,40 +193,22 @@ class ThreeScene extends Component{
         console.log("entro")
         this.raycaster.setFromCamera( this.mouse, this.camera );
         console.log(this.scene.children)
-        console.log(this.group)
-        this.intersects = this.raycaster.intersectObjects( this.group.children )
+        // console.log(this.group)
+        this.intersects = this.raycaster.intersectObjects( this.group2.children )
         console.log(this.intersects)
         if(this.intersects.length>0){
           console.log(this.intersects[0].object.name)
         }
-        // find intersections
-      
-        // create a Ray with origin at the mouse position
-        //   and direction into the scene (camera direction)
-        // this.vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 1);
-        // console.log(this.vector)
-        // this.vector.unproject(this.camera);
-        // console.log("holi")
-        // this.ray = new THREE.Raycaster(this.camera.position, this.vector.sub(this.camera.position).normalize());
-      
-        // // create an array containing all objects in the scene with which the ray intersects
-        // this.intersects = this.ray.intersectObjects(this.scene.children);
-        // if(this.intersects.length>0){
-        //     console.log(this.intersects[0].object)
-        // }
+
+  
         
-      
-      // INTERSECTED = the object in the scene currently closest to the camera 
-      // 		and intersected by the Ray projected from the mouse position 	
-    
-      // if there is one (or more) intersections
       if (this.intersects.length > 0) {
         // if the closest object intersected is not the currently stored intersection object
         if (this.intersects[0].object !== this.INTERSECTED) {
           // restore previous intersection object (if it exists) to its original color
           if (this.INTERSECTED) {
             console.log(this.INTERSECTED.position.y)
-            this.INTERSECTED.position.y -= 0.4
+            this.INTERSECTED.position.y -= 0.1
             this.INTERSECTED.material = this.material
           }
             
@@ -177,7 +218,7 @@ class ThreeScene extends Component{
           this.INTERSECTED.currentpositiony = this.INTERSECTED.position.y
           // set a new color for closest object
           this.INTERSECTED.material = this.material2
-          this.INTERSECTED.position.y += 0.4
+          this.INTERSECTED.position.y += 0.1
           this.setState({current : this.INTERSECTED})
         }
       } else // there are no intersections
@@ -195,9 +236,7 @@ class ThreeScene extends Component{
         
       }
       if(this.state.current!==this.INTERSECTED) this.setState({current : this.INTERSECTED})
-        // this.controls.update();
-        // // this.stats.update();
-      }
+      } 
 
 
     renderScene = () => {
