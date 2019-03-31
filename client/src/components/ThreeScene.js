@@ -53,7 +53,7 @@ class ThreeScene extends Component{
     this.targetObject.position.set(0,0,0)
     this.light.target = this.targetObject
 
-    this.camera.position.y = 2.5
+    this.camera.position.y = 2.2
     this.camera.position.z = 1.2
     this.camera.lookAt(this.scene.position);
     //ADD RENDERER
@@ -96,10 +96,10 @@ class ThreeScene extends Component{
       }
       );
 
-      this.material = new window.THREE.MeshPhongMaterial({color:'#ffffff' ,transparent:true})
-      this.material.opacity = 0.2
-      this.material2 = new window.THREE.MeshPhongMaterial({color:'#04ceff' ,transparent:true})
-      this.material2.opacity = 0.5
+    this.material = []
+
+    this.material2 = new window.THREE.MeshPhongMaterial({color:'#ff0000' ,transparent:true})
+    this.material2.opacity = 0.5
 
     this.group2 = new window.THREE.Group()
 
@@ -108,10 +108,12 @@ class ThreeScene extends Component{
         city.traverse( ( node )=> {
             if ( node.isMesh ) {
                 this.vidriotest[x] = node
+                let r = 4*x
+                this.material[x] = new window.THREE.MeshPhongMaterial({color:`ffffff` ,opacity: 0.2, transparent:true})
                 if(x<10) {this.vidriotest[x].name = `2800${x}`}
                 else {this.vidriotest[x].name = `280${x}`}
 
-                this.vidriotest[x].material = this.material
+                this.vidriotest[x].material = this.material[x]
                 this.group2.add(this.vidriotest[x]);
                 if(x==55)this.group.add(this.group2)
             } } )
@@ -131,17 +133,7 @@ class ThreeScene extends Component{
 
 
 
-    //ADD CUBE
-    // const geometry = new window.THREE.BoxGeometry(3, 3, 3)
-    // 
-    // 
-    // this.cube = new window.THREE.Mesh(geometry, this.material)
-    // this.cube2 = new window.THREE.Mesh(geometry, this.material)
-    // this.cube.receiveShadow = true
-    // this.cube2.receiveShadow = true
-    // this.cube.name = "28023"
-    // this.cube2.name = "28044"
-    // this.cube2.position.x = -5
+    
 
     
     this.scene.add(this.group,this.light,this.targetObject)
@@ -211,14 +203,15 @@ class ThreeScene extends Component{
           // restore previous intersection object (if it exists) to its original color
           if (this.INTERSECTED) {
             console.log(this.INTERSECTED.position.y)
-            this.INTERSECTED.position.y -= 0.03
-            this.INTERSECTED.material = this.material
+            this.INTERSECTED.position.y -= this.INTERSECTED.currentpositiony
+            this.INTERSECTED.material = this.INTERSECTED.currentmaterial
           }
             
           // store reference to closest object as current intersection object
           this.INTERSECTED = this.intersects[0].object;
           // store color of closest object (for later restoration)
           this.INTERSECTED.currentpositiony = this.INTERSECTED.position.y
+          this.INTERSECTED.currentmaterial = this.INTERSECTED.material
           // set a new color for closest object
           this.INTERSECTED.material = this.material2
           this.INTERSECTED.position.y += 0.03
@@ -228,8 +221,7 @@ class ThreeScene extends Component{
       {
         // restore previous intersection object (if it exists) to its original color
         if (this.INTERSECTED) {
-          this.INTERSECTED.material = this.material
-          console.log(this.INTERSECTED.position.y)
+          this.INTERSECTED.material = this.INTERSECTED.currentmaterial
           this.INTERSECTED.position.y = 0
         }
           

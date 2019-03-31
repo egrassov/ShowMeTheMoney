@@ -1,6 +1,20 @@
 .selection{
-    position: fixed;
-    right: 50px;
-    top: 50px;
-    color:white
-  }
+  position: fixed;
+  right: 50px;
+  top: 50px;
+  color:white;
+  text-align: right;
+}
+
+.minititle{
+  font-size: 13px;
+  font-weight: 200;
+}  
+
+.content{
+  font-size: 18px;
+}
+
+hr{
+  border: 1px solid grey;
+}
