@@ -53,8 +53,8 @@ class ThreeScene extends Component{
     this.targetObject.position.set(0,0,0)
     this.light.target = this.targetObject
 
-    this.camera.position.y = 10
-    this.camera.position.z = 4
+    this.camera.position.y = 2.5
+    this.camera.position.z = 1.2
     this.camera.lookAt(this.scene.position);
     //ADD RENDERER
     this.renderer = new window.THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -70,7 +70,7 @@ class ThreeScene extends Component{
     // LOADERS
 
     this.citymodel = undefined
-    this.vidriotest = undefined
+    this.vidriotest = {}
     this.citymap = this.textureLoader.load('/models/citytext.jpg')
     this.citymaterial = new window.THREE.MeshPhongMaterial({map: this.citymap, alphaMap: this.citymap})
       console.log(this.objLoader)
@@ -79,13 +79,12 @@ class ThreeScene extends Component{
     this.group = new window.THREE.Group();
   
 
-    this.objLoader.load('/models/testcity.obj',( city )=> {
+    this.objLoader.load('/models/citybase.obj',( city )=> {
       city.traverse( ( node )=> {
           if ( node.isMesh ) {
               console.log(node)
               this.citymodel = node
               this.citymodel.material = this.citymaterial
-              this.citymodel.rotation.x = -Math.PI/2
               this.group.add(this.citymodel);
           } } )
       },
@@ -99,29 +98,33 @@ class ThreeScene extends Component{
 
       this.material = new window.THREE.MeshPhongMaterial({color:'#ffffff' ,transparent:true})
       this.material.opacity = 0.2
-      this.material2 = new window.THREE.MeshPhongMaterial({color:'#f26d73' ,transparent:true})
+      this.material2 = new window.THREE.MeshPhongMaterial({color:'#04ceff' ,transparent:true})
       this.material2.opacity = 0.5
 
     this.group2 = new window.THREE.Group()
-    this.objLoader.load('/models/vidriotest.obj',( city )=> {
-      city.traverse( ( node )=> {
-          if ( node.isMesh ) {
-              console.log(node)
-              this.vidriotest = node
-              this.vidriotest.name = "28035"
-              this.vidriotest.rotation.x = -Math.PI/2
-              this.vidriotest.material = this.material
-              this.group2.add(this.vidriotest);
-              this.group.add(this.group2)
-          } } )
-      },
-      function ( progress ) {
-          console.log( ( progress.loaded / progress.total * 100 ) + '% loaded' );
-      },
-      function ( error ) {
-          console.log( 'An error happened loading the city model' );
-      }
-      );
+
+    for (let x=1;x<=55;x++){
+      this.objLoader.load(`/models/${x}.obj`,( city )=> {
+        city.traverse( ( node )=> {
+            if ( node.isMesh ) {
+                this.vidriotest[x] = node
+                if(x<10) {this.vidriotest[x].name = `2800${x}`}
+                else {this.vidriotest[x].name = `280${x}`}
+
+                this.vidriotest[x].material = this.material
+                this.group2.add(this.vidriotest[x]);
+                if(x==55)this.group.add(this.group2)
+            } } )
+        },
+        function ( progress ) {
+            console.log( ( progress.loaded / progress.total * 100 ) + '% loaded' );
+        },
+        function ( error ) {
+            console.log( 'An error happened loading the city model' );
+        }
+        );
+    }
+
 
     
 
@@ -182,7 +185,7 @@ class ThreeScene extends Component{
     animate = () => {
         // this.cube.rotation.y += 0.02
         // this.cube2.rotation.y -= 0.03
-        if(this.citymodel&&this.vidriotest)this.group.rotation.y -= 0.002
+        if(this.citymodel&&this.vidriotest)this.group.rotation.y -= 0.001
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
     }
@@ -208,7 +211,7 @@ class ThreeScene extends Component{
           // restore previous intersection object (if it exists) to its original color
           if (this.INTERSECTED) {
             console.log(this.INTERSECTED.position.y)
-            this.INTERSECTED.position.y -= 0.1
+            this.INTERSECTED.position.y -= 0.03
             this.INTERSECTED.material = this.material
           }
             
@@ -218,7 +221,7 @@ class ThreeScene extends Component{
           this.INTERSECTED.currentpositiony = this.INTERSECTED.position.y
           // set a new color for closest object
           this.INTERSECTED.material = this.material2
-          this.INTERSECTED.position.y += 0.1
+          this.INTERSECTED.position.y += 0.03
           this.setState({current : this.INTERSECTED})
         }
       } else // there are no intersections
@@ -251,7 +254,7 @@ class ThreeScene extends Component{
         return(
         <div>
           <GeneralStats element={elementtoprint}/>
-          <div
+          <div className="canvas"
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
               ref={(mount) => { this.mount = mount }}
               onMouseMove={this.onDocumentMouseMove}
