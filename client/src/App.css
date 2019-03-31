@@ -12,3 +12,11 @@
 .canvas{
   overflow: hidden;
 }
+
+.testbut{
+  position: fixed;
+  top: 50px;
+  left: 46%;
+  background-color: red;
+  color: white;
+}
