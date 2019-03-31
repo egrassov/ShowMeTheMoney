@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 
 import Service from '../services/generalservice'
+import Calendar from './Calendar';
 
 
 
@@ -15,6 +16,9 @@ class CitybyHours extends Component{
     super()
     this.service = new Service()
     this.txslist = undefined
+    this.state = {
+        counter:0
+    }
     this.objLoader = new window.THREE.OBJLoader()
     this.textureLoader = new window.THREE.TextureLoader()
   }
@@ -49,7 +53,7 @@ class CitybyHours extends Component{
     this.light.target = this.targetObject
 
     this.camera.position.y = 2.2
-    this.camera.position.z = 1.2
+    this.camera.position.z = 0.5
     this.camera.lookAt(this.scene.position);
     //ADD RENDERER
     this.renderer = new window.THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -99,7 +103,7 @@ class CitybyHours extends Component{
         city.traverse( ( node )=> {
             if ( node.isMesh ) {
                 this.vidriotest[x] = node
-                this.material[x] = new window.THREE.MeshPhongMaterial({color:`#ff0000` ,opacity: 0.7, transparent:true})
+                this.material[x] = new window.THREE.MeshPhongMaterial({color:`#ffffff` ,opacity: 0.2, transparent:true})
                 if(x<10) {this.vidriotest[x].name = `2800${x}`}
                 else {this.vidriotest[x].name = `280${x}`}
 
@@ -151,13 +155,14 @@ class CitybyHours extends Component{
     }
 
     initMagic = () => {
-        let counter = 0
         this.interval = setInterval(()=>{
             for(let i=1; i<55; i++){
-                // this.material[i].color = new window.THREE.Color(`rgb(${counter*3},0,0)`)
-                this.vidriotest[i].position.y = this.txslist[i-1][counter]/5000
+                console.log(`${this.txslist[i-1][this.state.counter]/40}`)
+                // this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=1 ? 1 : (this.txslist[i-1][this.state.counter]/3000)
+                // this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/30000
+                this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/25}, ${(this.txslist[i-1][this.state.counter]/20).toFixed()}%, 50%)`);
             }
-            counter++
+            this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
         },200)
     }
 
@@ -166,6 +171,7 @@ class CitybyHours extends Component{
         return(
         <div>
           <button onClick={this.initMagic} className="testbut">START</button>  
+          <Calendar counter={this.state.counter} />
           <div className="canvas"
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
               ref={(mount) => { this.mount = mount }}
