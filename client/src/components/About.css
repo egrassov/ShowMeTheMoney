@@ -1,0 +1,35 @@
+.container{
+    padding: 100px;
+    color: white;
+    text-align: left;
+}
+
+ul{
+    list-style: none;
+}
+
+
+.columns3{
+    display: flex;
+}
+
+
+.column1{
+
+    width: 44%;
+    box-sizing: border-box;
+    padding: 15px;
+    padding-top: 30px;
+}
+
+.column{
+    width: 28%;
+    margin-top: 50px;
+    box-sizing: border-box;
+    padding: 15px;
+    padding-top: 30px;
+}
+
+span{
+    color: rgb(0, 119, 255);
+}

@@ -1,9 +1,9 @@
 import React from 'react'
 
-
+let day,hour
 
 export default function Calendar({counter}) {
-    let day,hour
+    
     switch(true){
         case counter<24:
             day="Sunday"; break;
