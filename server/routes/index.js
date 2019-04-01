@@ -19,7 +19,7 @@ router.get('/txsbyhours', (req, res, next) => {
         day.HoursArr.forEach(hour => {
           zones[ind].push(hour.Txsbyhour)
         })
-      });
+      })
     })
     res.json(zones)
   })

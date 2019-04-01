@@ -10,7 +10,7 @@ import Service from '../services/generalservice'
 
 
 
-class ThreeScene extends Component{
+class HomeScene extends Component{
 
   constructor(){
     super()
@@ -108,14 +108,13 @@ class ThreeScene extends Component{
         city.traverse( ( node )=> {
             if ( node.isMesh ) {
                 this.vidriotest[x] = node
-                let r = 4*x
                 this.material[x] = new window.THREE.MeshPhongMaterial({color:`ffffff` ,opacity: 0.2, transparent:true})
                 if(x<10) {this.vidriotest[x].name = `2800${x}`}
                 else {this.vidriotest[x].name = `280${x}`}
 
                 this.vidriotest[x].material = this.material[x]
                 this.group2.add(this.vidriotest[x]);
-                if(x==55)this.group.add(this.group2)
+                if(x===55)this.group.add(this.group2)
             } } )
         },
         function ( progress ) {
@@ -241,7 +240,7 @@ class ThreeScene extends Component{
     render(){
         let elementtoprint = undefined
         if(this.ziplist&&this.state.current){
-          elementtoprint = this.ziplist.filter(e=>e.Zone==this.state.current.name)[0]
+          elementtoprint = this.ziplist.filter(e=>e.Zone===this.state.current.name)[0]
         }
         return(
         <div>
@@ -255,4 +254,4 @@ class ThreeScene extends Component{
         )
     }
 }
-export default ThreeScene
+export default HomeScene

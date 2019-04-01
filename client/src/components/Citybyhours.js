@@ -109,7 +109,7 @@ class CitybyHours extends Component{
 
                 this.vidriotest[x].material = this.material[x]
                 this.group2.add(this.vidriotest[x]);
-                if(x==55)this.group.add(this.group2)
+                if(x===55)this.group.add(this.group2)
             } } )
         },
         function ( progress ) {
@@ -157,14 +157,13 @@ class CitybyHours extends Component{
     initMagic = () => {
         this.interval = setInterval(()=>{
             for(let i=1; i<55; i++){
-                let c = 180-this.txslist[i-1][this.state.counter]/10<=0? 0 : (180-this.txslist[i-1][this.state.counter]/10).toFixed()
                 this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=0.65 ? 0.65 : (this.txslist[i-1][this.state.counter]/3000+0.2)
                 this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/15000
-                //this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/23}, ${(this.txslist[i-1][this.state.counter]/20).toFixed()}%, 50%)`);
-                this.material[i].color = new window.THREE.Color(`rgb(255,${c},${c})`);
+                this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/17}, ${(this.txslist[i-1][this.state.counter]/30).toFixed()}%, 50%)`);
+                //this.material[i].color = new window.THREE.Color(`rgb(255,${c},${c})`);
             }
             this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
-        },200)
+        },100)
     }
 
     render(){

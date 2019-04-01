@@ -4,7 +4,7 @@ const data = require('./testbyzip.js')
 const Zone = require("../models/Zone");
 
 
-mongoose.connect('mongodb://localhost/cityserver',{useNewUrlParser: true})
+mongoose.connect(process.env.DB,{useNewUrlParser: true})
 .then(() => {
   console.log("connect to mongoose")
   console.log(data.length)
