@@ -158,9 +158,9 @@ class CitybyHours extends Component{
         this.interval = setInterval(()=>{
             for(let i=1; i<55; i++){
                 console.log(`${this.txslist[i-1][this.state.counter]/40}`)
-                // this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=1 ? 1 : (this.txslist[i-1][this.state.counter]/3000)
-                // this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/30000
-                this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/25}, ${(this.txslist[i-1][this.state.counter]/20).toFixed()}%, 50%)`);
+                this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=0.75 ? 0.75 : (this.txslist[i-1][this.state.counter]/3000+0.2)
+                this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/15000
+                this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/23}, ${(this.txslist[i-1][this.state.counter]/20).toFixed()}%, 50%)`);
             }
             this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
         },200)
