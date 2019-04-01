@@ -3,15 +3,14 @@
   background-color: rgb(16, 16, 17);
   height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-.canvas{
-  overflow: hidden;
-}
+
 
 .testbut{
   position: fixed;
