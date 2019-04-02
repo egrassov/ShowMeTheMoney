@@ -2,12 +2,19 @@ const express = require('express');
 const router  = express.Router();
 const Zone = require('../models/Zone')
 const ZoneGeneral = require('../models/ZoneGeneral')
+const ZipRelations = require('../models/ZipRelations')
 
 /* GET home page */
 router.get('/', (req, res, next) => {
   ZoneGeneral.find()
   .then(data=>res.json(data))
 })
+
+router.get('/zipsrelations', (req, res, next) => {
+  ZipRelations.find()
+  .then(data=>res.json(data))
+})
+
 
 router.get('/txsbyhours', (req, res, next) => {
   Zone.find({},"Zone DaysArr.HoursArr.Txsbyhour")

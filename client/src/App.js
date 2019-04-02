@@ -19,7 +19,7 @@ function App({location}) {
               <Route exact path='/' render={() => <div><HomeScene/><SideBar/></div>} />
               <Route exact path='/byhours' render={() => <div><SideBar/><CitybyHours/></div>} />
               <Route exact path='/about' component={About}/>
-              <Route exact path='/graph' component={GraphRelations}/>
+              <Route exact path='/graph' render={() => <div><GraphRelations/><SideBar/></div>}/>
             </Switch>
           </CSSTransition>
         </TransitionGroup>
