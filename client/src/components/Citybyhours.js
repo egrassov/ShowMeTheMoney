@@ -160,7 +160,7 @@ class CitybyHours extends Component{
                 for(let i=1; i<55; i++){
                     this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=0.9 ? 0.9 : (this.txslist[i-1][this.state.counter]/3000+0.4)
                     this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/10000
-                    this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/17}, 50%, 70%)`);
+                    this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/5000*360+200}, 50%, 70%)`);
                     //this.material[i].color = new window.THREE.Color(`rgb(255,${c},${c})`);
                 }
                 this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
