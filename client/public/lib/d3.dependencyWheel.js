@@ -58,6 +58,7 @@ d3.chart.dependencyWheel = function(options) {
               .filter(function(d) {
                 if (d.source.index == i) {
                   groups.push(d.target.index);
+                  console.log(d.source.index)
                 }
                 if (d.target.index == i) {
                   groups.push(d.source.index);

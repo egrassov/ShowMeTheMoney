@@ -1,11 +1,74 @@
-.sidebar{
+.menu{
     position: fixed;
+    display: flex;
+    background-color: #161319;
+    height: 100vh;
+    box-sizing: border-box;
     left: 20px;
-    top: 20px;
-    width: 90px;
-    height: 95vh;
+    top: 0;
+    width: 2010px;
     font-size: 13px;
-    text-align: left;
+    text-align: right;
     color:white;
     border-right: 1px solid rgb(141, 141, 141);
+    transform: translateX(-1920px);
+    transition: transform 1s;
+    padding: 15px;
+    z-index: 500;
   }
+
+  .menu.open{
+    transform: translateX(0);
+  }
+
+  .container{
+    padding: 100px;
+    width: 1920px;
+    box-sizing: border-box;
+    color: white;
+    text-align: left;
+  }
+
+  ul{
+      list-style: none;
+  }
+
+
+  .columns3{
+      display: flex;
+  }
+
+
+  .column1{
+
+      width: 44%;
+      box-sizing: border-box;
+      padding: 15px;
+      padding-top: 30px;
+  }
+
+  .column{
+      width: 28%;
+      margin-top: 50px;
+      box-sizing: border-box;
+      padding: 15px;
+      padding-top: 30px;
+  }
+
+  span{
+      color: rgb(0, 119, 255);
+  }
+
+  .sidebar{
+    text-align: left;
+    padding-right: 5px;
+  }
+
+  .burger{
+    width: 30px;
+    display: block;
+    margin-top: 300px;
+    margin-left: 15px;
+    object-fit: contain;
+  }
+

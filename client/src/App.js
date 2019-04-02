@@ -13,13 +13,14 @@ function App({location}) {
 
     return (
       <div className="App">
+        <SideBar/>
         <TransitionGroup>
           <CSSTransition key={location.key} timeout={{ enter: 3000, exit: 3000 }} classNames={'fade'}>
             <Switch location={location}>
-              <Route exact path='/' render={() => <div><HomeScene/><SideBar/></div>} />
-              <Route exact path='/byhours' render={() => <div><SideBar/><CitybyHours/></div>} />
+              <Route exact path='/' render={() => <div><HomeScene/></div>} />
+              <Route exact path='/byhours' render={() => <div><CitybyHours/></div>} />
               <Route exact path='/about' component={About}/>
-              <Route exact path='/graph' render={() => <div><GraphRelations/><SideBar/></div>}/>
+              <Route exact path='/graph' render={() => <div><GraphRelations/></div>}/>
             </Switch>
           </CSSTransition>
         </TransitionGroup>
