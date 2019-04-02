@@ -73,8 +73,7 @@ class HomeScene extends Component{
     this.vidriotest = {}
     this.citymap = this.textureLoader.load('/models/citytext.jpg')
     this.citymaterial = new window.THREE.MeshPhongMaterial({map: this.citymap, alphaMap: this.citymap})
-      console.log(this.objLoader)
-      console.log(this.citymap)
+
 
     this.group = new window.THREE.Group();
   
@@ -108,7 +107,7 @@ class HomeScene extends Component{
         city.traverse( ( node )=> {
             if ( node.isMesh ) {
                 this.vidriotest[x] = node
-                this.material[x] = new window.THREE.MeshPhongMaterial({color:`ffffff` ,opacity: 0.2, transparent:true})
+                this.material[x] = new window.THREE.MeshPhongMaterial({color:`#ffffff` ,opacity: 0.2, transparent:true})
                 if(x<10) {this.vidriotest[x].name = `2800${x}`}
                 else {this.vidriotest[x].name = `280${x}`}
 

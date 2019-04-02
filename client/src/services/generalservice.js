@@ -20,6 +20,16 @@ export default class Service{
         })
     }
 
+    getZipRelations = () => {
+        return this.service.get("/zipsrelations")
+        .then(res => {
+            return res.data
+        })
+        .catch( err => {
+            console.log(err)
+        })
+    }
+
     getCitybyHours = () => {
         return this.service.get("/txsbyhours")
         .then(res => {

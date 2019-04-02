@@ -7,6 +7,7 @@ import HomeScene from './components/HomeScene';
 import SideBar from './components/SideBar';
 import CitybyHours from './components/Citybyhours';
 import About from './components/About';
+import GraphRelations from './components/GraphRelations';
 
 function App({location}) {
 
@@ -18,6 +19,7 @@ function App({location}) {
               <Route exact path='/' render={() => <div><HomeScene/><SideBar/></div>} />
               <Route exact path='/byhours' render={() => <div><SideBar/><CitybyHours/></div>} />
               <Route exact path='/about' component={About}/>
+              <Route exact path='/graph' render={() => <div><GraphRelations/><SideBar/></div>}/>
             </Switch>
           </CSSTransition>
         </TransitionGroup>

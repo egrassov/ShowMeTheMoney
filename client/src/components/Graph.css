@@ -1,0 +1,12 @@
+.testsvg{
+    width: 1000px;
+    margin:0 auto;
+    padding-top: 20px;
+    fill: white;
+}
+
+.buttons{
+    position: absolute;
+    top: 100;
+    left: 100;
+}
