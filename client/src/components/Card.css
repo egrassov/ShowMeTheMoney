@@ -1,0 +1,20 @@
+.story{
+    border-top: 1px solid grey;
+    text-align: right;
+    margin-bottom: 40px;
+}
+
+.story h2{
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.story .link{
+    text-decoration: none;
+    border: none;
+}
+.story span{
+    font-size: 13px;
+    font-weight: bolder;
+    color: rgb(0, 119, 255);
+}

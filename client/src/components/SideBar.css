@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
+
+
+
 .menu{
     position: fixed;
     display: flex;
@@ -21,9 +25,12 @@
     transform: translateX(0);
   }
 
+
+ 
   .container{
     padding: 100px;
-    width: 1920px;
+    padding-top: 60px;
+    width: 1825px;
     box-sizing: border-box;
     color: white;
     text-align: left;
@@ -33,9 +40,18 @@
       list-style: none;
   }
 
+  li{
+    display: inline-block;
+  }
+
+  .minititle{
+    font-size: 16px;
+    font-weight: bolder
+  }
 
   .columns3{
       display: flex;
+      margin-top: 80px;
   }
 
 
@@ -43,25 +59,33 @@
 
       width: 44%;
       box-sizing: border-box;
-      padding: 15px;
       padding-top: 30px;
+      font-family: Libre-Baskersville;
+      font-weight: lighter;
+      font-size: 58px;
   }
 
   .column{
       width: 28%;
-      margin-top: 50px;
+      margin-top: 90px;
       box-sizing: border-box;
       padding: 15px;
       padding-top: 30px;
   }
 
-  span{
-      color: rgb(0, 119, 255);
-  }
+
 
   .sidebar{
     text-align: left;
     padding-right: 5px;
+  }
+
+  .sidebarvisible{
+    box-sizing: border-box;
+    border-left:1px solid rgba(141, 141, 141,0.4);
+    width: 95px;
+    padding-top: 123px;
+    padding-left: 4px;
   }
 
   .burger{

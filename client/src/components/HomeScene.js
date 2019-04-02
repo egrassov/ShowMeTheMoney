@@ -97,7 +97,7 @@ class HomeScene extends Component{
 
     this.material = []
 
-    this.material2 = new window.THREE.MeshPhongMaterial({color:'#ff0000' ,transparent:true})
+    this.material2 = new window.THREE.MeshPhongMaterial({color:'#0000ff' ,transparent:true})
     this.material2.opacity = 0.5
 
     this.group2 = new window.THREE.Group()

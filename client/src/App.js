@@ -6,7 +6,6 @@ import './App.css';
 import HomeScene from './components/HomeScene';
 import SideBar from './components/SideBar';
 import CitybyHours from './components/Citybyhours';
-import About from './components/About';
 import GraphRelations from './components/GraphRelations';
 
 function App({location}) {
@@ -19,8 +18,7 @@ function App({location}) {
             <Switch location={location}>
               <Route exact path='/' render={() => <div><HomeScene/></div>} />
               <Route exact path='/byhours' render={() => <div><CitybyHours/></div>} />
-              <Route exact path='/about' component={About}/>
-              <Route exact path='/graph' render={() => <div><GraphRelations/></div>}/>
+              <Route exact path='/relations' render={() => <div><GraphRelations/></div>}/>
             </Switch>
           </CSSTransition>
         </TransitionGroup>

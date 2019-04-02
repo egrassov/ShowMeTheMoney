@@ -1,14 +1,18 @@
 import './SideBar.css'
 
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 
 import burger from './menu.svg'
+import back from './right-arrow.svg'
+import Card from './Card';
+
+
+
 
 export default class SideBar extends Component {
 
   toggle = ()=>{
-			document.querySelector('.menu').classList.toggle('open')
+    document.querySelector('.menu').classList.toggle('open')
   }
 
   toggleX = (e)=>{
@@ -20,24 +24,26 @@ export default class SideBar extends Component {
     return (
       <div className="menu">
         <div className="container">
-              <h5>Show me the Money</h5>
-              <ul className="aboutmenu"><li>Elements</li><li>Elements</li><li>Elements</li></ul>
+              <h2 className="minititle">Show me <br></br>the Money</h2>
+              {/* <ul className="aboutmenu"><li>Elements</li><li>Elements</li><li>Elements</li></ul> */}
               <div className="columns3">
                   <h1 className="column1">Stories in money</h1>
                   <div className="column">
-                      <h3>Overview</h3><p>Spain's money is in Madrid</p><Link onClick={this.toggle} to={'/'}><span>View the data</span></Link>
-                      <h3>Money is shaping up the city</h3><p>Typical week, hour by hour</p><Link onClick={this.toggle} to={'/byhours'}><span>View the data</span></Link>
-                      <h3>From where to where?</h3><p>View how the money flows between different areas</p><Link onClick={this.toggle} to={'/graph'}><span>View the data</span></Link>
-                      <h3>Consumption patterns</h3><p>When are we spending our money?</p><span>View the data</span>
+                      <Card title="Overview" toggle={this.toggle} way='/' />
+                      <Card title="Money is shaping up the city" toggle={this.toggle} way='/byhours' />
+                      <Card title="From where to where?" toggle={this.toggle} way='/relations' />
+                      <Card title="Consumption patterns" toggle={this.toggle} way='/relations' />
                   </div>
                   <div className="column">
-                      <h3>Something interesting</h3><span>View the data</span>
-                      <h3>Something interesting</h3><span>View the data</span>
-                      <h3>Something interesting</h3><span>View the data</span>
-                      <h3>Something interesting</h3><span>View the data</span>
+                      <Card title="Overview" toggle={this.toggle} way='/' />
+                      <Card title="Money is shaping up the city" toggle={this.toggle} way='/byhours' />
+                      <Card title="From where to where?" toggle={this.toggle} way='/relations' />
+                      <Card title="Consumption patterns" toggle={this.toggle} way='/relations' />
                   </div>
+              </div>
         </div>
-
+        <div className="sidebarvisible">
+          <a href="" className="burger" onClick={(e)=>this.toggleX(e)}><img src={back} /></a>
         </div>
         <div className="sidebar">
           <h2>Show<br/>me<br/>the<br/>Money</h2>

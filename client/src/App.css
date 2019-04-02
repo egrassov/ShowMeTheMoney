@@ -1,5 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700');
 
 
@@ -49,5 +48,5 @@
 
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 1500ms ease-in;
+  transition: opacity 600ms ease;
 }
