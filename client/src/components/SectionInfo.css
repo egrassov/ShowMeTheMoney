@@ -1,0 +1,15 @@
+.info{
+    border-top: 1px solid grey;
+    width: 300px;
+    position: absolute;
+    top: 180px;
+    left: 200px;
+    color: white;
+    text-align: left;
+}
+
+.info h1{
+    font-family: Libre-Baskersville;
+    font-weight: lighter;
+    font-size: 45px;
+}

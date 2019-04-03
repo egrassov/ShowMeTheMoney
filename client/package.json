@@ -17,7 +17,7 @@
     "three-stats": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_URL=https://showmethemoney-dhh.herokuapp.com/api react-scripts start",
     "build-dev": "dotenv -e .env.dev react-scripts build",
     "build-prod": "REACT_APP_URL=https://showmethemoney-dhh.herokuapp.com/api react-scripts build",
     "test": "react-scripts test",

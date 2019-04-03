@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import GeneralStats from './GeneralStats';
 
 import Service from '../services/generalservice'
+import SectionInfo from './SectionInfo';
+import HomeButtons from './HomeButtons';
 
 
 
@@ -97,7 +99,7 @@ class HomeScene extends Component{
 
     this.material = []
 
-    this.material2 = new window.THREE.MeshPhongMaterial({color:'#0000ff' ,transparent:true})
+    this.material2 = new window.THREE.MeshPhongMaterial({color:'#ff00ff' ,transparent:true})
     this.material2.opacity = 0.7
 
     this.group2 = new window.THREE.Group()
@@ -243,12 +245,14 @@ class HomeScene extends Component{
         }
         return(
         <div>
+          <SectionInfo title="Overview" description="Mouse over the 3D model showing the different city areas and display the main data for each one"/>
           <GeneralStats element={elementtoprint}/>
           <div className="canvas"
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
               ref={(mount) => { this.mount = mount }}
               onMouseMove={this.onDocumentMouseMove}
           />
+          <HomeButtons/>
         </div>
         )
     }
