@@ -4,12 +4,12 @@ export default class Service{
     constructor(){
 
         this.service = axios.create({
-            baseURL: "https://showmethemoney-dhh.herokuapp.com/api"
+            baseURL: process.env.REACT_APP_URL
         })
     }
 
     getZipStats = () => {
-
+        
         console.log(process.env.REACT_APP_URL+"/")
         return this.service.get("/")
         .then(res => {
