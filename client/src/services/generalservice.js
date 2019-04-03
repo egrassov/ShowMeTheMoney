@@ -4,7 +4,7 @@ export default class Service{
     constructor(){
 
         this.service = axios.create({
-            baseURL: process.env.DB
+            baseURL: process.env.REACT_APP_URL
         })
     }
 
