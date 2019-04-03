@@ -98,7 +98,7 @@ class HomeScene extends Component{
     this.material = []
 
     this.material2 = new window.THREE.MeshPhongMaterial({color:'#0000ff' ,transparent:true})
-    this.material2.opacity = 0.5
+    this.material2.opacity = 0.7
 
     this.group2 = new window.THREE.Group()
 
@@ -107,7 +107,7 @@ class HomeScene extends Component{
         city.traverse( ( node )=> {
             if ( node.isMesh ) {
                 this.vidriotest[x] = node
-                this.material[x] = new window.THREE.MeshPhongMaterial({color:`#ffffff` ,opacity: 0.2, transparent:true})
+                this.material[x] = new window.THREE.MeshPhongMaterial({color:`hsl(200,50%,70%)` ,opacity: 0.4, transparent:true})
                 if(x<10) {this.vidriotest[x].name = `2800${x}`}
                 else {this.vidriotest[x].name = `280${x}`}
 

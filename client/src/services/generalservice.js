@@ -40,5 +40,15 @@ export default class Service{
         })
     }
 
+    getTxsforCompare = () => {
+        return this.service.get("/txsforcompare")
+        .then(res => {
+            return res.data
+        })
+        .catch( err => {
+            console.log(err)
+        })
+    }
+
 
 }

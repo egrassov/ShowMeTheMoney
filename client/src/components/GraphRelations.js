@@ -80,10 +80,10 @@ export default class GraphRelations extends Component {
 
         function chart(selection,i) {
           selection.each(function(data) {
-            console.log(i)
-            if(i===0) var matrix = data.matrixTxs;
-            if(i===1) var matrix = data.matrixAvg;
-            if(i===2) var matrix = data.matrixVolume;
+            var matrix
+            if(i===0) matrix = data.matrixTxs;
+            if(i===1) matrix = data.matrixAvg;
+            if(i===2) matrix = data.matrixVolume;
             
             var packageNames = data.packageNames;
             var radius = width / 2 - margin;
