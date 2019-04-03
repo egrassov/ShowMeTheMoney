@@ -9,6 +9,7 @@ export default class Service{
     }
 
     getZipStats = () => {
+        
         console.log(process.env.REACT_APP_URL+"/")
         return this.service.get("/")
         .then(res => {
