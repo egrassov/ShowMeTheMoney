@@ -4,7 +4,7 @@ export default class Service{
     constructor(){
 
         this.service = axios.create({
-            baseURL: "http://localhost:5000/api"
+            baseURL: process.env.DB
         })
     }
 
