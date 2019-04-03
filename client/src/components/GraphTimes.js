@@ -1,4 +1,6 @@
+import './Graphtest.css'
 import React, { Component } from 'react'
+
 
 const d3=window.d3
 
@@ -111,13 +113,21 @@ export default class GraphTimes extends Component {
             .attr("stroke-width", 1.5)
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
-          .selectAll("path")
-          .data(data.series)
-          .join("path")
-            .style("mix-blend-mode", "multiply")
-            .attr("d", d => line(d.values));
+
+        path 
+            .selectAll("path")
+            .data(data.series)
+            .enter()
+            .append("path")
+            .attr("d", d => line(d.values)); 
+
+        //   .selectAll("path")
+        //   .data(data.series)
+        //   .join("path")
+        //     .style("mix-blend-mode", "multiply")
+        //     .attr("d", d => line(d.values));
       
-        svg.call(hover, path);
+         svg.call(hover, path);
       
         return svg.node();
     }
@@ -126,9 +136,9 @@ export default class GraphTimes extends Component {
 
     render() {
         return (
-            <div className="testsvg" id={"#" + this.props.id}>
+            <svg className="testsvg" id={"#" + this.props.id}>
                 
-            </div>
+            </svg>
         )
     }
 }
