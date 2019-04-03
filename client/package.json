@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build-dev": "dotenv -e .env.dev react-scripts build",
-    "build-prod": "dotenv -e .env.prod REACT_APP_URL=https://showmethemoney-dhh.herokuapp.com/api react-scripts build",
+    "build-prod": "REACT_APP_URL=https://showmethemoney-dhh.herokuapp.com/api react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
