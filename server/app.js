@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const index = require('./routes/index');
-app.use('/api/', index);
+app.use('/api', index);
 
 
 app.use((req, res, next) => {
