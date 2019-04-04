@@ -5,7 +5,6 @@
 
 
 .App {
-  text-align: center;
   background-color: #161319;
   height: 100vh;
   width: 100%;
@@ -14,16 +13,11 @@
   position: relative;
 }
 
-
-
-
-.testbut{
-  position: fixed;
-  top: 50px;
-  left: 46%;
-  background-color: red;
-  color: white;
+.rightaligner{
+  text-align: center;
 }
+
+
 
 
 .fade-enter {
@@ -43,5 +37,5 @@
 
 .fade-exit.fade-exit-active {
   opacity: 0.01;
-  transition: opacity 600ms ease;
+  transition: opacity 100ms ease;
 }

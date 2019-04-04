@@ -101,8 +101,10 @@ export default class Calendar extends Component {
     <section class="clock__indicator"></section>
 </div>
 <hr className="clockhr"></hr>
+<div className="rightaligner">
 <h4>{day}</h4>
 <h4>{hour}.00h</h4>
+</div>
         </div>
     )
   }

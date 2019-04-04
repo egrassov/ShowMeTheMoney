@@ -9,7 +9,7 @@
 }
 
 .graphbuttonscontainer{
-    position: absolute;
+    position: fixed;
     bottom: 250px;
     left: 200px;
 }
@@ -109,3 +109,68 @@
  .btnX.activeX{
     border-color: rgb(35, 109, 219) !important
 }
+
+.filterlevel{
+    position: fixed;
+    color: white;
+    font-size: 14px;
+    bottom: 60px;
+    right: 420px;;
+}
+.graphbuttonscontainer2 {
+    position: fixed;
+    bottom: 70px;
+    right: 60px;;
+  }
+  
+  .radioSliderGroup {
+    position: relative;
+    border: 1px solid rgb(0, 95, 150);
+    margin: 1px auto;
+    width: 350px;
+    border-radius: 50px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    z-index: 300;
+  }
+  
+  .radioSliderGroup input[type=radio] {
+    display: none;
+  }
+  
+  .radioSliderGroup label {
+    font-size: 14px;
+    position: relative;
+    display: inline-block;
+    margin: 1% 1%;
+    width: 23%;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    z-index: 200;
+  }
+  
+  .slider {
+    position: absolute;
+    display: inline-block;
+    left: 25%;
+    width: 25%;
+    height: 100%;
+    background: rgba(0, 70, 161, 0.952);
+    z-index: 100;
+    transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .male:checked ~ .slider {
+    transform: translateX(-101%);
+  }
+  .female:checked ~ .slider {
+    transform: translateX(0);
+  }
+  .other:checked ~ .slider {
+    transform: translateX(101%);
+  }
+
+  .other2:checked ~ .slider {
+    transform: translateX(202.5%);
+  }

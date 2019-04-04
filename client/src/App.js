@@ -18,19 +18,11 @@ function App({location}) {
       <div className="App">
         <SideBar/>
         <TransitionGroup>
-          <CSSTransition key={location.key} timeout={{ enter: 3000, exit: 3000 }} classNames={'fade'}>
+          <CSSTransition key={location.key} timeout={{ enter: 100, exit: 100 }} classNames={'fade'}>
             <Switch location={location}>
               <Route exact path='/' render={() => <div><HomeScene/></div>} />
               <Route exact path='/byhours' render={() => <div><CitybyHours/></div>} />
               <Route exact path='/relations' render={() => <div><GraphRelations/></div>}/>
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
-        <TransitionGroup>
-          <CSSTransition key={location.key} timeout={{ enter: 3000, exit: 3000 }} classNames={'test'}>
-            <Switch location={location}>
-              <Route exact path='/timings2' render={() => <div><GraphTimes/></div>}/>
-              <Route exact path='/timings' render={() => <div><MultiSeriesAreaChart/></div>}/>
             </Switch>
           </CSSTransition>
         </TransitionGroup>

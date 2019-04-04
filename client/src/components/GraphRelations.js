@@ -235,21 +235,32 @@ export default class GraphRelations extends Component {
       if(this.ziplist&&this.state.current){
         elementtoprint = this.ziplist.filter(e=>e.Zone===this.state.current)[0]
       }
-      return <div className="testsvg" id={"#" + this.props.id}>
+      return (
+      <div>
               <SectionInfo title="From where to where?" description="People spend their money mostly on their neighbourhood or anywhere else? Find the relations between areas playing with the chart."/>
               <GeneralStats element={elementtoprint}/>
               <div className="graphbuttonscontainer">
-                <a  className="btnX" onClick={(e)=>this.changeData(e,0)}>TRANSACTIONS</a><br></br>
+                <a  className="btnX activeX" onClick={(e)=>this.changeData(e,0)}>TRANSACTIONS</a><br></br>
                 <a  className="btnX" onClick={(e)=>this.changeData(e,1)}>AVERAGE SPENT</a><br></br>
                 <a  className="btnX" onClick={(e)=>this.changeData(e,2)}>TOTAL VOLUME</a>
               </div>
-              <div className="buttons">
-                <button onClick={()=>this.change(0)}>Full</button>
-                <button onClick={()=>this.change(1)}>> 500</button>
-                <button onClick={()=>this.change(2)}>> 1000</button>
-                <button onClick={()=>this.change(3)}>> 1500</button>
+              <div className="filterlevel"><p>Filter level </p></div>
+              <div className="graphbuttonscontainer2">
+                <div class="radioSliderGroup">
+                  <input onClick={()=>this.change(0)} type="radio" class="male" id="1" name="gender"/>
+                  <input onClick={()=>this.change(1)} type="radio" class="female" id="2" name="gender"/>
+                  <input onClick={()=>this.change(2)} type="radio" class="other" id="3" name="gender"/>  
+                  <input onClick={()=>this.change(3)} type="radio" class="other2" id="4" name="gender"/> 
+                  <label for="1">></label>
+                  <label for="2">>></label>
+                  <label for="3">>>></label>
+                  <label for="4">>>>></label>
+                  <div class="slider"></div>
+                </div>    
               </div>
-            </div>
+          <div className="testsvg" style={{width:"1000px"}}></div>
+      </div>
+      )
       }
 }
 
