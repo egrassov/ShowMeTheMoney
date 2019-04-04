@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Service from '../services/generalservice'
 import GeneralStats from './GeneralStats'
-
+import {districts} from '../Districts'
 import './Graph.css'
 import SectionInfo from './SectionInfo';
 
@@ -118,9 +118,6 @@ export default class GraphRelations extends Component {
               .outerRadius(radius + 20);
 
             var fill = function(d) {
-              //if (d.index === 0) return '#ccc';
-              //return "rgba(80,0," + parseInt(((packageNames[d.index][0].charCodeAt() - 97) / 26) * 200, 10) + ",0.5)"
-              //return "hsl(" + parseInt(((packageNames[d.index][0].charCodeAt() - 97) / 26) * 360, 10) + ",70%,70%)";
               return "hsl(" + ((d.index/150) * 360 +170) + ",60%,30%)";
             };
 
@@ -189,7 +186,7 @@ export default class GraphRelations extends Component {
                     (d.angle > Math.PI ? "rotate(180)" : "");
                 })
                 .style("cursor", "pointer")
-                .text(function(d) { return packageNames[d.index]; })
+                .text(function(d) { return districts[d.index]; })
                 .on("mouseover", fade(0.1))
                 .on("mouseout", fade(0.8));
 

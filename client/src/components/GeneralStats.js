@@ -1,4 +1,4 @@
-
+import {districts} from '../Districts'
 import './Display.css';
 
 
@@ -6,11 +6,12 @@ import './Display.css';
 import React from 'react'
 
 export default function GeneralStats(props) {
-    console.log(props)
+    
     if(props.element){
+        let title = districts[((parseInt(props.element.Zone)%100)-1)]
         return (
             <div className="selection full">
-                
+                <h3>{title}</h3>
                 <h1>{props.element.Zone}</h1>
                 <hr className="specialhr"></hr>
                 <p className="sectitle">MERCHANTS</p>

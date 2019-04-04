@@ -32,13 +32,13 @@ export default class SideBar extends Component {
                       <Card title="Overview" toggle={this.toggle} way='/' />
                       <Card title="Money is shaping up the city" toggle={this.toggle} way='/byhours' />
                       <Card title="From where to where?" toggle={this.toggle} way='/relations' />
-                      <Card title="Timings" toggle={this.toggle} way='/timings' />
+                      <Card title="Timings" toggle={this.toggle} way='/' />
                   </div>
                   <div className="column">
-                      <Card title="Consumption patterns" toggle={this.toggle} way='/timings2' />
-                      <Card title="Money is shaping up the city" toggle={this.toggle} way='/byhours' />
-                      <Card title="From where to where?" toggle={this.toggle} way='/relations' />
-                      <Card title="Consumption patterns" toggle={this.toggle} way='/relations' />
+                      <Card title="Consumption patterns" toggle={this.toggle} way='/' />
+                      <Card title="Rich or poor?" toggle={this.toggle} way='/' />
+                      <Card title="Cash is for country men" toggle={this.toggle} way='/' />
+                      <Card title="The place to be" toggle={this.toggle} way='/' />
                   </div>
               </div>
         </div>

@@ -14,7 +14,7 @@
 }
 
 .selection>h1{
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 40px;
   margin-bottom: 15px;
   font-family: Libre-Baskersville;
@@ -36,4 +36,13 @@
 .specialhr{
   border-top: none;
   border-bottom: 1px solid grey;
+}
+
+.selection>h3{
+  font-size: 20px;
+  /* text-align: left; */
+  font-style: oblique;
+  font-weight: lighter;
+  margin-bottom: 5px;
+  color: rgb(220, 46, 255)
 }
