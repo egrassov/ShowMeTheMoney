@@ -10,9 +10,9 @@ export default function GeneralStats(props) {
     if(props.element){
         return (
             <div className="selection full">
-                <p className="sectitle">ZIPCODE</p>
+                
                 <h1>{props.element.Zone}</h1>
-                <hr></hr>
+                <hr className="specialhr"></hr>
                 <p className="sectitle">MERCHANTS</p>
                 <p className="content">{props.element.Merchants}</p>
                 <p className="sectitle"># CARDS</p>

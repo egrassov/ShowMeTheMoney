@@ -3,6 +3,7 @@ import Service from '../services/generalservice'
 import GeneralStats from './GeneralStats'
 
 import './Graph.css'
+import SectionInfo from './SectionInfo';
 
 
 
@@ -62,13 +63,21 @@ export default class GraphRelations extends Component {
       }
     }
 
-    changeData = (w)=>{
+    changeData = (e,w)=>{
+      e.preventDefault()
+
       if(w!==this.control){
         this.control=w
         window.d3.select('chart')
         .remove()
         this.drawChart(this.datasets[this.selection],this.control)
       }
+
+      document.querySelectorAll('.btnX').forEach(e=>{
+          e.classList="btnX"
+      })
+      e.currentTarget.classList.toggle('activeX')
+
     }
     
 
@@ -227,16 +236,18 @@ export default class GraphRelations extends Component {
         elementtoprint = this.ziplist.filter(e=>e.Zone===this.state.current)[0]
       }
       return <div className="testsvg" id={"#" + this.props.id}>
+              <SectionInfo title="From where to where?" description="People spend their money mostly on their neighbourhood or anywhere else? Find the relations between areas playing with the chart."/>
               <GeneralStats element={elementtoprint}/>
+              <div className="graphbuttonscontainer">
+                <a  className="btnX" onClick={(e)=>this.changeData(e,0)}>TRANSACTIONS</a><br></br>
+                <a  className="btnX" onClick={(e)=>this.changeData(e,1)}>AVERAGE SPENT</a><br></br>
+                <a  className="btnX" onClick={(e)=>this.changeData(e,2)}>TOTAL VOLUME</a>
+              </div>
               <div className="buttons">
                 <button onClick={()=>this.change(0)}>Full</button>
                 <button onClick={()=>this.change(1)}>> 500</button>
                 <button onClick={()=>this.change(2)}>> 1000</button>
                 <button onClick={()=>this.change(3)}>> 1500</button>
-                <hr style={{width:"100px", border:"1px solid white"}}></hr>
-                <button onClick={()=>this.changeData(0)}>By Transactions</button>
-                <button onClick={()=>this.changeData(1)}>By Average Amount Spent</button>
-                <button onClick={()=>this.changeData(2)}>By Volume</button>
               </div>
             </div>
       }
