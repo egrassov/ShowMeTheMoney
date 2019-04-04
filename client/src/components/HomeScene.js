@@ -70,7 +70,7 @@ class HomeScene extends Component{
       1000
     )
 
-    this.light = new window.THREE.DirectionalLight( 0xdddddd, 0.8 )
+    this.light = new window.THREE.DirectionalLight( 0xdddddd, 1.5 )
     this.light.position.set( -10, 10, -10 )
 
     this.targetObject = new window.THREE.Object3D();
@@ -184,12 +184,9 @@ class HomeScene extends Component{
     }
 
     onDocumentMouseMove = (event) => {
-        // the following line would stop any other event handler from firing
-        // (such as the mouse's TrackballControls)
+
         event.preventDefault();
       
-        // update the mouse variable
-
         this.mouse.x = ( event.clientX / this.renderer.domElement.clientWidth ) * 2 - 1;
         this.mouse.y = - ( event.clientY / this.renderer.domElement.clientHeight ) * 2 + 1;
         this.update()

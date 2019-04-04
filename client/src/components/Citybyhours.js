@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 
 import Service from '../services/generalservice'
 import Calendar from './Calendar';
+import SectionInfo from './SectionInfo';
 
 
 
@@ -45,7 +46,7 @@ class CitybyHours extends Component{
       1000
     )
 
-    this.light = new window.THREE.DirectionalLight( 0xdddddd, 0.8 )
+    this.light = new window.THREE.DirectionalLight( 0xdddddd, 1.5 )
     this.light.position.set( -10, 10, -10 )
 
     this.targetObject = new window.THREE.Object3D();
@@ -53,7 +54,7 @@ class CitybyHours extends Component{
     this.light.target = this.targetObject
 
     this.camera.position.y = 2.2
-    this.camera.position.z = 0.5
+    this.camera.position.z = 1.2
     this.camera.lookAt(this.scene.position);
     //ADD RENDERER
     this.renderer = new window.THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -161,7 +162,6 @@ class CitybyHours extends Component{
                     this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=0.9 ? 0.9 : (this.txslist[i-1][this.state.counter]/3000+0.4)
                     this.vidriotest[i].position.y = this.txslist[i-1][this.state.counter]/10000
                     this.material[i].color = new window.THREE.Color(`hsl(${this.txslist[i-1][this.state.counter]/7000*360+200}, 50%, 70%)`);
-                    //this.material[i].color = new window.THREE.Color(`rgb(255,${c},${c})`);
                 }
                 this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
             },100)
@@ -173,7 +173,8 @@ class CitybyHours extends Component{
 
         return(
         <div>
-          <button onClick={this.initMagic} className="testbut">START</button>  
+          <SectionInfo title="Money is shaping up the city" description="Day by day, hour by hour. Amount of transactions for each area. Click the start button and bring life to the city."/>
+          <div className="timercontainer"><a className="btn10" onClick={this.initMagic}>START</a></div>
           <Calendar counter={this.state.counter} />
           <div className="canvas"
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}
