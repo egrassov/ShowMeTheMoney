@@ -1,0 +1,79 @@
+
+  $black: #1b1e23;
+  $size: 220px;
+  $white: #f4eed7;
+  $feature : #4b9aaa;
+
+  .calendar{
+    position: fixed;
+    top: 200px;
+    right: 70px;
+    color: white;
+  }
+
+  hr{
+    margin-top: 50px;
+    border-top:none;
+    border-bottom: 1px solid grey;
+  }
+
+
+.clock {
+  height: $size;
+  width: $size;
+  border-radius: #{$size / 2};
+  display: flex;
+  justify-content: center;
+  position: relative;
+  &__minute,
+  &__hour, &__indicator {
+    position: absolute;
+    left: calc(50% - 1px);
+    width: 2px;
+    background: $white;
+    transform-origin: bottom center;
+    z-index: 2;
+    border-radius: 1px;
+  }
+  &__minute {
+    height: #{($size / 2) - 20};
+    background: $feature;
+    margin-top: 20px;
+    opacity: 0.75;
+    animation: time 1.2s linear infinite;
+    animation-play-state: paused;
+  }
+
+  &__indicator {
+    height: #{($size / 2) - 2};
+    border-top: 2px solid $feature;
+    background: none;
+  }
+  &__indicator:nth-of-type(5n) {
+    opacity: 1;
+    height: #{($size / 2) - 7};
+    border-top: 7px solid $white;
+  }
+  &__axis {
+    background: $feature;
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 4;
+    top: #{$size / 2 - 3};
+    
+  }
+}
+
+@for $i from 1 through 60 {
+  section:nth-of-type(#{$i}) {
+    transform: rotateZ(calc(6deg * #{$i}));
+  }
+}
+
+@keyframes time {
+  to {
+    transform: rotateZ(360deg);
+  }
+}

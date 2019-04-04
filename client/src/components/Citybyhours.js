@@ -15,6 +15,7 @@ class CitybyHours extends Component{
 
   constructor(){
     super()
+    this.running = false
     this.service = new Service()
     this.txslist = undefined
     this.state = {
@@ -156,7 +157,11 @@ class CitybyHours extends Component{
     }
 
     initMagic = () => {
-        if(this.txslist){
+        if(this.txslist&&!this.running){
+            this.running = true
+            document.querySelector(".clock__minute").style.setProperty("animation-play-state", "running")
+            document.querySelector("#control").innerHTML="STOP"
+            document.querySelector("#control").classList.toggle('stop')
             this.interval = setInterval(()=>{
                 for(let i=1; i<55; i++){
                     this.material[i].opacity = (this.txslist[i-1][this.state.counter]/3000)>=0.9 ? 0.9 : (this.txslist[i-1][this.state.counter]/3000+0.4)
@@ -165,6 +170,12 @@ class CitybyHours extends Component{
                 }
                 this.state.counter===167? this.setState({counter:0}) : this.setState({counter:this.state.counter+1})
             },100)
+        } else {
+            this.running = false
+            clearInterval(this.interval)
+            document.querySelector(".clock__minute").style.setProperty("animation-play-state", "paused")
+            document.querySelector("#control").innerHTML="START"
+            document.querySelector("#control").classList.toggle('stop')
         }
 
     }
@@ -174,7 +185,7 @@ class CitybyHours extends Component{
         return(
         <div>
           <SectionInfo title="Money is shaping up the city" description="Day by day, hour by hour. Amount of transactions for each area. Click the start button and bring life to the city."/>
-          <div className="timercontainer"><a className="btn10" onClick={this.initMagic}>START</a></div>
+          <div className="timercontainer"><a id="control" className="btn10" onClick={this.initMagic}>START</a></div>
           <Calendar counter={this.state.counter} />
           <div className="canvas"
               style={{ margin: '0 auto' ,width: '100vw', height: '100vh' }}

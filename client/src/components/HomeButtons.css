@@ -152,3 +152,8 @@
     transform: scale(1, 1)
   }
   
+
+  .btn10.stop{
+    
+      border-color: rgb(245, 46, 245) !important
+  }
