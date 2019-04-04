@@ -3,17 +3,26 @@ import './HomeButtons.css'
 
 export default class HomeButtons extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.active = undefined
     }
 
     toggle = (e)=>{
         e.preventDefault()
+        if(e.currentTarget.classList.contains("active")) e.currentTarget.classList.toggle('active')
+        else{
+            document.querySelectorAll('.btn6').forEach(e=>{
+                e.classList="btn6"
+            })
+            e.currentTarget.classList.toggle('active')
+        }
+        this.active=undefined
         document.querySelectorAll('.btn6').forEach(e=>{
-            e.classList="btn6"
+            if(e.classList.contains("active")) this.active=e.innerText
         })
-        e.currentTarget.classList.toggle('active')
+        console.log(this.active)
+        this.props.method(this.active)
     }
 
     render() {

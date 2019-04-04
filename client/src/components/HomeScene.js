@@ -5,6 +5,7 @@ import GeneralStats from './GeneralStats';
 import Service from '../services/generalservice'
 import SectionInfo from './SectionInfo';
 import HomeButtons from './HomeButtons';
+import Notes from './Notes';
 
 
 
@@ -21,7 +22,8 @@ class HomeScene extends Component{
     this.objLoader = new window.THREE.OBJLoader()
     this.textureLoader = new window.THREE.TextureLoader()
     this.state = {
-      current : null
+      current : null,
+      filter: undefined
     }
   }
 
@@ -30,6 +32,26 @@ class HomeScene extends Component{
     .then(response=>{
         console.log(response)
         this.ziplist = response
+    })
+  }
+
+  updatefilter = (data) => {
+    let fil = []
+    if(data) data=data.slice(0,1)+data.slice(1).toLowerCase()
+    console.log(data)
+    this.setState({...this.state, filter:data},()=>{
+      if(data) fil = this.ziplist.sort((a,b)=>parseInt(b[data])-parseInt(a[data])).slice(0,7).map(e=>e.Zone)
+      else fil=[]
+      this.vidriotest.forEach((e,ind)=>{
+        if(fil.includes(e.name)) {
+          e.material = this.material2
+          e.position.y = 0.05
+        }
+        else {
+          e.material = this.material[ind]
+          e.position.y = 0
+        }
+      })
     })
   }
 
@@ -72,7 +94,7 @@ class HomeScene extends Component{
     // LOADERS
 
     this.citymodel = undefined
-    this.vidriotest = {}
+    this.vidriotest = []
     this.citymap = this.textureLoader.load('/models/citytext.jpg')
     this.citymaterial = new window.THREE.MeshPhongMaterial({map: this.citymap, alphaMap: this.citymap})
 
@@ -83,7 +105,6 @@ class HomeScene extends Component{
     this.objLoader.load('/models/citybase.obj',( city )=> {
       city.traverse( ( node )=> {
           if ( node.isMesh ) {
-              console.log(node)
               this.citymodel = node
               this.citymodel.material = this.citymaterial
               this.group.add(this.citymodel);
@@ -175,9 +196,8 @@ class HomeScene extends Component{
       }
 
     animate = () => {
-        // this.cube.rotation.y += 0.02
-        // this.cube2.rotation.y -= 0.03
         if(this.citymodel&&this.vidriotest)this.group.rotation.y -= 0.001
+
         this.renderScene()
         this.frameId = window.requestAnimationFrame(this.animate)
     }
@@ -185,15 +205,9 @@ class HomeScene extends Component{
     update = () => {
 
 
-        console.log("entro")
         this.raycaster.setFromCamera( this.mouse, this.camera );
-        console.log(this.scene.children)
-        // console.log(this.group)
+
         this.intersects = this.raycaster.intersectObjects( this.group2.children )
-        console.log(this.intersects)
-        if(this.intersects.length>0){
-          console.log(this.intersects[0].object.name)
-        }
 
   
         
@@ -202,7 +216,6 @@ class HomeScene extends Component{
         if (this.intersects[0].object !== this.INTERSECTED) {
           // restore previous intersection object (if it exists) to its original color
           if (this.INTERSECTED) {
-            console.log(this.INTERSECTED.position.y)
             this.INTERSECTED.position.y -= this.INTERSECTED.currentpositiony
             this.INTERSECTED.material = this.INTERSECTED.currentmaterial
           }
@@ -215,7 +228,7 @@ class HomeScene extends Component{
           // set a new color for closest object
           this.INTERSECTED.material = this.material2
           this.INTERSECTED.position.y += 0.03
-          this.setState({current : this.INTERSECTED})
+          this.setState({...this.state, current : this.INTERSECTED})
         }
       } else // there are no intersections
       {
@@ -230,7 +243,7 @@ class HomeScene extends Component{
         this.INTERSECTED = null
         
       }
-      if(this.state.current!==this.INTERSECTED) this.setState({current : this.INTERSECTED})
+      if(this.state.current!==this.INTERSECTED) this.setState({...this.state, current : this.INTERSECTED})
       } 
 
 
@@ -252,7 +265,8 @@ class HomeScene extends Component{
               ref={(mount) => { this.mount = mount }}
               onMouseMove={this.onDocumentMouseMove}
           />
-          <HomeButtons/>
+          <Notes category={this.state.filter} />
+          <HomeButtons method={(a)=>this.updatefilter(a)}/>
         </div>
         )
     }
